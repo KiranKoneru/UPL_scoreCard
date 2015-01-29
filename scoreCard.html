@@ -2,7 +2,47 @@
 <html>
 	<head>
 		<script>
-		var b = [];	
+		var b = [];
+		function calScore(){
+		var striker = document.getElementsByClassName("striker");
+		var bowler = document.getElementsByClassName("bowler");
+		var curBall = document.getElementById("curBall");
+		var runs = parseInt(curBall.options[curBall.selectedIndex].value);
+		//batsman stats
+		if (striker.length!= 1){
+			alert("This Application is a mess!! Jeez!!");
+			}
+		else{
+			striker[0].children[2].innerHTML = parseInt(striker[0].children[2].innerHTML) + runs ;
+			striker[0].children[3].innerHTML = parseInt(striker[0].children[3].innerHTML) + 1 ;
+			var sRuns = parseInt(striker[0].children[2].innerHTML);
+			var sBalls = parseInt(striker[0].children[3].innerHTML);
+			var sSR = ((sRuns/sBalls) * 100).toFixed(2) ;
+			striker[0].children[6].innerHTML = sSR ;
+			if (runs ==4) striker[0].children[4].innerHTML = parseInt(striker[0].children[4].innerHTML) + 1 ;
+			if (runs==6) striker[0].children[5].innerHTML = parseInt(striker[0].children[5].innerHTML) + 1 ;
+			}
+		
+		
+		//bowler stats	
+		var balls = ((parseFloat(bowler[0].children[2].innerHTML) * 10 ) % 10) + 1;
+		var overs =  parseInt(bowler[0].children[2].innerHTML) ;
+		if(balls==6) {balls=0;overs++;}
+		
+		bowler[0].children[2].innerHTML = overs + '.' + balls;
+		bowler[0].children[3].innerHTML = parseInt(bowler[0].children[3].innerHTML) + runs;
+		bowler[0].children[6].innerHTML = ((((parseInt(bowler[0].children[3].innerHTML))/((overs * 6) + balls) ))* 6).toFixed(2);
+		
+		
+		//code to change batsman strike
+		
+		
+		
+		curBall.selectedIndex = "";
+		}
+		
+		
+		
 		</script>
 	</head>
 	<body>
@@ -20,23 +60,23 @@
 					<th>6s</th>
 					<th>SR</th>
 				</tr>
-				<tr>
-					<td> 1</td>
-					<td> Neeraj</td>
-					<td>20</td>
-					<td>15</td>
-					<td>1</td>
-					<td>1</td>
-					<td>133</td>		
+				<tr class="striker">
+					<td > 1</td>
+					<td > Neeraj</td>
+					<td >20</td>
+					<td >15</td>
+					<td >1</td>
+					<td >1</td>
+					<td >133</td>		
 				</tr>
-				<tr>
-					<td> 2</td>
-					<td> Naveen</td>
-					<td>25</td>
-					<td>20</td>
-					<td>2</td>
-					<td>1</td>
-					<td>125</td>		
+				<tr class="runner">
+					<td > 2</td>
+					<td > Naveen</td>
+					<td >25</td>
+					<td >20</td>
+					<td >2</td>
+					<td >1</td>
+					<td >125</td>		
 				</tr>
 			
 			</table>
@@ -52,7 +92,7 @@
 					<th>Extras</th>
 					<th>Economy</th>
 				</tr>
-				<tr>
+				<tr class="bowler">
 					<td>1</td>
 					<td>Kiran</td>
 					<td>1.4</td>
@@ -64,7 +104,7 @@
 			</table>
 		</div>
 		<div>
-			<select>
+			<select onchange="calScore()" id="curBall">
 				<option></option>
 				<option value="0">0</option>
 				<option value="1">1</option>

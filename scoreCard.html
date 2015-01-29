@@ -5,6 +5,7 @@
 		var b = [];
 		function calScore(){
 		var striker = document.getElementsByClassName("striker");
+		var runner = document.getElementsByClassName("runner");
 		var bowler = document.getElementsByClassName("bowler");
 		var curBall = document.getElementById("curBall");
 		var runs = parseInt(curBall.options[curBall.selectedIndex].value);
@@ -35,6 +36,9 @@
 		
 		
 		//code to change batsman strike
+		if(runs%2!=0 || )
+		striker[0].className = striker[0].className.replace( /(?:^|\s)striker(?!\S)/g , 'runner' );
+		runner[1].className = runner[1].className.replace( /(?:^|\s)runner(?!\S)/g , 'striker' );
 		
 		
 		
@@ -44,6 +48,20 @@
 		
 		
 		</script>
+		
+		<style>
+		.runner{
+			background-color:red;
+		}
+		
+		.striker{
+			background-color:green;
+		}
+		
+		.bowler{
+			background-color:yellow;
+		}
+		</style>
 	</head>
 	<body>
 		<div style="height:300px">

@@ -17,7 +17,7 @@
 			if (eRuns == "wide" || eRuns == "byes" || eRuns == "noball" ){
 		
 				var e = parseInt(prompt("How many Runs?"));
-					if(e == 0 || (!e) ) return;
+					if(e == 0 || (!e) ) {extra.selectedIndex = "extra";return;}
 					if(eRuns == "wide"){
 													score.innerHTML = parseInt(score.innerHTML) + e;
 													bowler[0].children[3].innerHTML = parseInt(bowler[0].children[3].innerHTML) + e;
@@ -30,13 +30,17 @@
 													score.innerHTML = parseInt(score.innerHTML) + e;
 													bowler[0].children[3].innerHTML = parseInt(bowler[0].children[3].innerHTML) + e;
 													bowler[0].children[5].innerHTML = parseInt(bowler[0].children[5].innerHTML) + e;
+													if(balls==6) {balls=0;overs++;}
+													bowler[0].children[2].innerHTML = overs + '.' + balls;
 													bowler[0].children[6].innerHTML
-													= ((((parseInt(bowler[0].children[3].innerHTML))/((overs * 6) + (balls-1)) ))* 6).toFixed(2);
+													= ((((parseInt(bowler[0].children[3].innerHTML))/((overs * 6) + (balls)) ))* 6).toFixed(2);
 													
 					}
 					if(eRuns == "noball" ){
 									score.innerHTML = parseInt(score.innerHTML) + e;
 									striker[0].children[2].innerHTML = parseInt(striker[0].children[2].innerHTML) + e - 1;
+									if (e ==5) striker[0].children[4].innerHTML = parseInt(striker[0].children[4].innerHTML) + 1 ;
+									if (e==7) striker[0].children[5].innerHTML = parseInt(striker[0].children[5].innerHTML) + 1 ;
 									bowler[0].children[3].innerHTML = parseInt(bowler[0].children[3].innerHTML) + e;
 									bowler[0].children[5].innerHTML = parseInt(bowler[0].children[5].innerHTML) + 1;
 									bowler[0].children[6].innerHTML
@@ -87,7 +91,7 @@
 																	cStriker.className = "runner";
 																	cRunner.className = "striker";
 									}
-				curBall.selectedIndex = "";
+				curBall.selectedIndex = "Runs";
 			}
 		}
 		</script>
@@ -166,7 +170,7 @@
 		</div>
 		<div>
 			<select onchange="calScore()" id="curBall">
-				<option></option>
+				<option>Runs</option>
 				<option value="0">0</option>
 				<option value="1">1</option>
 				<option value="2">2</option>

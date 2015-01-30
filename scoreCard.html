@@ -2,19 +2,23 @@
 <html>
 	<head>
 		<script>
-		var b = [];
+		
 		function calScore(){
+		var score = document.getElementById("score");
 		var striker = document.getElementsByClassName("striker");
 		var runner = document.getElementsByClassName("runner");
 		var bowler = document.getElementsByClassName("bowler");
 		var curBall = document.getElementById("curBall");
 		var runs = parseInt(curBall.options[curBall.selectedIndex].value);
+		
 		//batsman stats
+		
 		if (striker.length!= 1){
 			alert("This Application is a mess!! Jeez!!");
 			}
 		else{
 			striker[0].children[2].innerHTML = parseInt(striker[0].children[2].innerHTML) + runs ;
+			score.innerHTML = parseInt(score.innerHTML) + runs; 
 			striker[0].children[3].innerHTML = parseInt(striker[0].children[3].innerHTML) + 1 ;
 			var sRuns = parseInt(striker[0].children[2].innerHTML);
 			var sBalls = parseInt(striker[0].children[3].innerHTML);
@@ -33,22 +37,58 @@
 		bowler[0].children[2].innerHTML = overs + '.' + balls;
 		bowler[0].children[3].innerHTML = parseInt(bowler[0].children[3].innerHTML) + runs;
 		bowler[0].children[6].innerHTML = ((((parseInt(bowler[0].children[3].innerHTML))/((overs * 6) + balls) ))* 6).toFixed(2);
-		var cStriker = striker[0];
-		var cRunner = runner[0];
+	
 		
 		//code to change batsman strike
+		var cStriker = striker[0];
+		var cRunner = runner[0];
 		if((runs%2 != 0 || balls == 0) && (!(runs%2 != 0 && balls == 0))) {
-		
-																	/*striker[0].className = striker[0].className.replace( /(?:^|\s)striker(?!\S)/g , 'runner' );
-																	runner[1].className = runner[1].className.replace( /(?:^|\s)runner(?!\S)/g , 'striker' );*/
 																	cStriker.className = "runner";
 																	cRunner.className = "striker";
 		}
+		
+	
 		
 		
 		curBall.selectedIndex = "";
 		}
 		
+		function extra(){
+			var e = parseInt(prompt("How many Runs?"));
+			var bowler = document.getElementsByClassName("bowler");
+			var striker = document.getElementsByClassName("striker");
+			var score = document.getElementById("score");
+			var runner = document.getElementsByClassName("runner");
+			var balls = ((parseFloat(bowler[0].children[2].innerHTML) * 10 ) % 10);
+			var overs =  parseInt(bowler[0].children[2].innerHTML) ;
+			if(e == 0 || (!e) ) return;
+			var extra = document.getElementById("extra");
+			var eRuns = extra.options[extra.selectedIndex].value;
+			if(eRuns == "wide" || eRuns == "byes"){
+													score.innerHTML = parseInt(score.innerHTML) + e;
+													bowler[0].children[3].innerHTML = parseInt(bowler[0].children[3].innerHTML) + e;
+													bowler[0].children[5].innerHTML = parseInt(bowler[0].children[5].innerHTML) + e;
+													bowler[0].children[6].innerHTML
+													= ((((parseInt(bowler[0].children[3].innerHTML))/((overs * 6) + balls) ))* 6).toFixed(2);
+													
+			}
+			if(eRuns == "noball" ){
+									var cStriker = striker[0];
+									var cRunner = runner[0];
+									score.innerHTML = parseInt(score.innerHTML) + e;
+									striker[0].children[2].innerHTML = parseInt(striker[0].children[2].innerHTML) + e - 1;
+									bowler[0].children[3].innerHTML = parseInt(bowler[0].children[3].innerHTML) + e;
+									bowler[0].children[5].innerHTML = parseInt(bowler[0].children[5].innerHTML) + 1;
+									bowler[0].children[6].innerHTML
+									= ((((parseInt(bowler[0].children[3].innerHTML))/((overs * 6) + balls) ))* 6).toFixed(2);
+									
+									if(((e-1)%2 != 0 || balls == 0) && (!((e-1)%2 != 0 && balls == 0))) {
+																	cStriker.className = "runner";
+																	cRunner.className = "striker";
+									}
+			}
+			extra.selectedIndex = "extra";
+		}
 		
 		
 		</script>
@@ -70,7 +110,7 @@
 	<body>
 		<div style="height:300px">
 			<h2 style="display:inline">
-			Team a <p id="score" style="display:inline">20</p> / <p style="display:inline" id="wickets"> 1 </p>
+			Team a <p id="score" style="display:inline">48</p> / <p style="display:inline" id="wickets"> 1 </p>
 			</h2>
 			<table id="batTeam" border="1">
 				<tr>
@@ -136,9 +176,14 @@
 				<option value="5">5</option>
 				<option value="6">6</option>
 			</select>
-			
-		
+			<select id="extra" onchange="extra()">
+				<option>Extra</option>
+				<option value="noball">No Ball</option>
+				<option value="wide">Wide</option>
+				<option value="byes">Byes</option>
+			</select>
 		</div>
+		
 		
 	</body>
 </html>

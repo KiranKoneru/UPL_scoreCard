@@ -4,77 +4,37 @@
 		<script>
 		
 		function calScore(){
-		var score = document.getElementById("score");
-		var striker = document.getElementsByClassName("striker");
-		var runner = document.getElementsByClassName("runner");
-		var bowler = document.getElementsByClassName("bowler");
-		var curBall = document.getElementById("curBall");
-		var runs = parseInt(curBall.options[curBall.selectedIndex].value);
-		
-		//batsman stats
-		
-		if (striker.length!= 1){
-			alert("This Application is a mess!! Jeez!!");
-			}
-		else{
-			striker[0].children[2].innerHTML = parseInt(striker[0].children[2].innerHTML) + runs ;
-			score.innerHTML = parseInt(score.innerHTML) + runs; 
-			striker[0].children[3].innerHTML = parseInt(striker[0].children[3].innerHTML) + 1 ;
-			var sRuns = parseInt(striker[0].children[2].innerHTML);
-			var sBalls = parseInt(striker[0].children[3].innerHTML);
-			var sSR = ((sRuns/sBalls) * 100).toFixed(2) ;
-			striker[0].children[6].innerHTML = sSR ;
-			if (runs ==4) striker[0].children[4].innerHTML = parseInt(striker[0].children[4].innerHTML) + 1 ;
-			if (runs==6) striker[0].children[5].innerHTML = parseInt(striker[0].children[5].innerHTML) + 1 ;
-			}
-		
-		
-		//bowler stats	
-		var balls = ((parseFloat(bowler[0].children[2].innerHTML) * 10 ) % 10) + 1;
-		var overs =  parseInt(bowler[0].children[2].innerHTML) ;
-		if(balls==6) {balls=0;overs++;}
-		
-		bowler[0].children[2].innerHTML = overs + '.' + balls;
-		bowler[0].children[3].innerHTML = parseInt(bowler[0].children[3].innerHTML) + runs;
-		bowler[0].children[6].innerHTML = ((((parseInt(bowler[0].children[3].innerHTML))/((overs * 6) + balls) ))* 6).toFixed(2);
-	
-		
-		//code to change batsman strike
-		var cStriker = striker[0];
-		var cRunner = runner[0];
-		if((runs%2 != 0 || balls == 0) && (!(runs%2 != 0 && balls == 0))) {
-																	cStriker.className = "runner";
-																	cRunner.className = "striker";
-		}
-		
-	
-		
-		
-		curBall.selectedIndex = "";
-		}
-		
-		function extra(){
-			var e = parseInt(prompt("How many Runs?"));
-			var bowler = document.getElementsByClassName("bowler");
-			var striker = document.getElementsByClassName("striker");
 			var score = document.getElementById("score");
+			var striker = document.getElementsByClassName("striker");
 			var runner = document.getElementsByClassName("runner");
-			var balls = ((parseFloat(bowler[0].children[2].innerHTML) * 10 ) % 10);
+			var bowler = document.getElementsByClassName("bowler");
+			var curBall = document.getElementById("curBall");
+			var runs = parseInt(curBall.options[curBall.selectedIndex].value);
+			var balls = ((parseFloat(bowler[0].children[2].innerHTML) * 10 ) % 10) + 1;
 			var overs =  parseInt(bowler[0].children[2].innerHTML) ;
-			if(e == 0 || (!e) ) return;
 			var extra = document.getElementById("extra");
-			var eRuns = extra.options[extra.selectedIndex].value;
-			if(eRuns == "wide" || eRuns == "byes"){
+			var eRuns = extra.options[extra.selectedIndex].value; 
+			if (eRuns == "wide" || eRuns == "byes" || eRuns == "noball" ){
+		
+				var e = parseInt(prompt("How many Runs?"));
+					if(e == 0 || (!e) ) return;
+					if(eRuns == "wide"){
 													score.innerHTML = parseInt(score.innerHTML) + e;
 													bowler[0].children[3].innerHTML = parseInt(bowler[0].children[3].innerHTML) + e;
 													bowler[0].children[5].innerHTML = parseInt(bowler[0].children[5].innerHTML) + e;
 													bowler[0].children[6].innerHTML
-													= ((((parseInt(bowler[0].children[3].innerHTML))/((overs * 6) + balls) ))* 6).toFixed(2);
+													= ((((parseInt(bowler[0].children[3].innerHTML))/((overs * 6) + (balls-1)) ))* 6).toFixed(2);
 													
-			}
-			if(eRuns == "noball" ){
-									var cStriker = striker[0];
-									var cRunner = runner[0];
+					}
+					if(eRuns == "byes"){
+													score.innerHTML = parseInt(score.innerHTML) + e;
+													bowler[0].children[3].innerHTML = parseInt(bowler[0].children[3].innerHTML) + e;
+													bowler[0].children[5].innerHTML = parseInt(bowler[0].children[5].innerHTML) + e;
+													bowler[0].children[6].innerHTML
+													= ((((parseInt(bowler[0].children[3].innerHTML))/((overs * 6) + (balls-1)) ))* 6).toFixed(2);
+													
+					}
+					if(eRuns == "noball" ){
 									score.innerHTML = parseInt(score.innerHTML) + e;
 									striker[0].children[2].innerHTML = parseInt(striker[0].children[2].innerHTML) + e - 1;
 									bowler[0].children[3].innerHTML = parseInt(bowler[0].children[3].innerHTML) + e;
@@ -82,15 +42,54 @@
 									bowler[0].children[6].innerHTML
 									= ((((parseInt(bowler[0].children[3].innerHTML))/((overs * 6) + balls) ))* 6).toFixed(2);
 									
+									var cStriker = striker[0];
+									var cRunner = runner[0];
 									if(((e-1)%2 != 0 || balls == 0) && (!((e-1)%2 != 0 && balls == 0))) {
 																	cStriker.className = "runner";
 																	cRunner.className = "striker";
 									}
+					}
+					
+					extra.selectedIndex = "extra";
+					return;
 			}
-			extra.selectedIndex = "extra";
+		
+		
+			else{
+		//batsman stats
+				if (striker.length!= 1){
+										alert("This Application is a mess!! Jeez!!");
+				}
+				else{
+						striker[0].children[2].innerHTML = parseInt(striker[0].children[2].innerHTML) + runs ;
+						score.innerHTML = parseInt(score.innerHTML) + runs; 
+						striker[0].children[3].innerHTML = parseInt(striker[0].children[3].innerHTML) + 1 ;
+						var sRuns = parseInt(striker[0].children[2].innerHTML);
+						var sBalls = parseInt(striker[0].children[3].innerHTML);
+						var sSR = ((sRuns/sBalls) * 100).toFixed(2) ;
+						striker[0].children[6].innerHTML = sSR ;
+						if (runs ==4) striker[0].children[4].innerHTML = parseInt(striker[0].children[4].innerHTML) + 1 ;
+						if (runs==6) striker[0].children[5].innerHTML = parseInt(striker[0].children[5].innerHTML) + 1 ;
+				}
+		
+		
+		//bowler stats	
+		
+				if(balls==6) {balls=0;overs++;}
+		
+				bowler[0].children[2].innerHTML = overs + '.' + balls;
+				bowler[0].children[3].innerHTML = parseInt(bowler[0].children[3].innerHTML) + runs;
+				bowler[0].children[6].innerHTML = ((((parseInt(bowler[0].children[3].innerHTML))/((overs * 6) + balls) ))* 6).toFixed(2);
+				var cStriker = striker[0];
+				var cRunner = runner[0];
+				//code to change batsman strike
+				if((runs%2 != 0 || balls == 0) && (!(runs%2 != 0 && balls == 0))) {
+																	cStriker.className = "runner";
+																	cRunner.className = "striker";
+									}
+				curBall.selectedIndex = "";
+			}
 		}
-		
-		
 		</script>
 		
 		<style>
@@ -176,7 +175,7 @@
 				<option value="5">5</option>
 				<option value="6">6</option>
 			</select>
-			<select id="extra" onchange="extra()">
+			<select id="extra" onchange="calScore()">
 				<option>Extra</option>
 				<option value="noball">No Ball</option>
 				<option value="wide">Wide</option>

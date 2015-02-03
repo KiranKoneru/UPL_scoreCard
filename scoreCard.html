@@ -152,7 +152,54 @@
 													
 													tWickets.innerHTML = i -1;
 								        }
-										if(uWk =="uHw"){
+										if(uWk =="uRunout"){
+													
+													var prevBat = document.getElementById("out"+i);
+													var nextBat = document.getElementById("notOut"+i);
+													var a = confirm("Was this a No-Ball?");
+													if(a){
+															balls--;
+															score.innerHTML = parseInt(score.innerHTML) - 1;
+															bowler[0].children[3].innerHTML = parseInt(bowler[0].children[3].innerHTML) - 1;
+															bowler[0].children[5].innerHTML = parseInt(bowler[0].children[5].innerHTML) - 1;
+															
+													}
+										
+													nextBat.style.display = "none";
+													nextBat.className = "";
+													if(!striker[0]) prevBat.className = "striker";
+													else prevBat.className = "runner";
+													bowler[0].children[4].innerHTML = parseInt(bowler[0].children[4].innerHTML) - 1;
+													if(balls==1) {
+																	balls=5;
+																	overs--;
+																	var cStriker = striker[0];
+																	var cRunner = runner[0];
+																	cStriker.className = "runner";
+																	cRunner.className = "striker";
+													}
+													else balls-=2;
+													var k = parseInt(prompt("how many runs came on this ball?"));
+													
+													
+													
+													
+													
+													bowler[0].children[2].innerHTML = overs + '.' + balls;
+													bowler[0].children[6].innerHTML
+													= ((((parseInt(bowler[0].children[3].innerHTML))/((overs * 6) + balls) ))* 6).toFixed(2);
+													
+													var sRuns = parseInt(striker[0].children[2].innerHTML);
+													var sBalls = parseInt(striker[0].children[3].innerHTML);
+													var sSR = ((sRuns/sBalls) * 100).toFixed(2) ;
+													striker[0].children[6].innerHTML = sSR ;
+
+													
+													
+													
+													tWickets.innerHTML = i -1;
+								        }
+																				if(uWk =="uHw"){
 													
 													var prevBat = document.getElementById("out"+i);
 													var nextBat = document.getElementById("notOut"+i);
@@ -389,6 +436,15 @@
 													var k = parseInt(prompt("how many runs came on this ball?"));
 													striker[0].children[2].innerHTML = parseInt(striker[0].children[2].innerHTML) + k ;
 													score.innerHTML = parseInt(score.innerHTML) + k; 
+													var b = confirm("Is this a No Ball?");
+													if (b){
+															balls--;
+															score.innerHTML = parseInt(score.innerHTML) + 1;
+															bowler[0].children[3].innerHTML = parseInt(bowler[0].children[3].innerHTML) + 1;
+															bowler[0].children[5].innerHTML = parseInt(bowler[0].children[5].innerHTML) + 1;
+															
+															
+													}
 						
 													striker[0].children[3].innerHTML = parseInt(striker[0].children[3].innerHTML) + 1 ;
 													var sRuns = parseInt(striker[0].children[2].innerHTML);
@@ -403,7 +459,7 @@
 													striker[0].children[7].innerHTML = "Run Out "+ y ;
 													striker[0].id= "out"+i;
 													striker[0].className = "";
-													var nextBat = document.getElementsByClassName("notOut"+i);
+													var nextBat = document.getElementById("notOut"+i);
 													nextBat.className = " striker";
 													nextBat.style.display = "";
 														if(!l){
@@ -417,7 +473,7 @@
 													var l = confirm("Is "+runner[0].children[1].children[0].value + " out at batting end?" );
 													runner[0].children[7].innerHTML = "Run Out "+ y ;
 													runner[0].className= "out"+i;
-													var nextBat = document.getElementsByClassName("notOut"+i)[0];
+													var nextBat = document.getElementById("notOut"+i)[0];
 													nextBat.className = "runner";
 													nextBat.style.display = "";
 														if(l){

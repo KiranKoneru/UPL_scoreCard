@@ -493,7 +493,7 @@
 													var l = confirm("Is "+runner[0].children[1].children[0].value + " out at batting end?" );
 													runner[0].children[7].innerHTML = "Run Out "+ y ;
 													runner[0].className= "out"+i;
-													var nextBat = document.getElementById("notOut"+i)[0];
+													var nextBat = document.getElementById("notOut"+i);
 													nextBat.className = "runner";
 													nextBat.style.display = "";
 														if(l){

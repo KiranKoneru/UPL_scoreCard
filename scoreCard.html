@@ -169,7 +169,7 @@
 													nextBat.className = "";
 													if(!striker[0]) prevBat.className = "striker";
 													else prevBat.className = "runner";
-													bowler[0].children[4].innerHTML = parseInt(bowler[0].children[4].innerHTML) - 1;
+													if(!a){
 													if(balls==1) {
 																	balls=5;
 																	overs--;
@@ -179,7 +179,26 @@
 																	cRunner.className = "striker";
 													}
 													else balls-=2;
-													var k = parseInt(prompt("how many runs came on this ball?"));
+													}
+													var c = confirm("Was "+ striker[0].children[1].children[0].value+" on strike before Run Out happened?");
+													if (!c){
+															var cStriker = striker[0];
+																	var cRunner = runner[0];
+																	cStriker.className = "runner";
+																	cRunner.className = "striker";
+													
+													}
+													
+													if(confirm("Did batsman score runs off this ball?")){
+																										var k = parseInt(prompt("how many runs came off this ball?"));
+																										score.innerHTML = parseInt(score.innerHTML) - k;
+																										
+																										striker[0].children[3].innerHTML = parseInt(striker[0].children[3].innerHTML) - 1;
+																			 
+																			                            bowler[0].children[3].innerHTML = parseInt(bowler[0].children[3].innerHTML) - k;
+																										
+																										
+													}
 													
 													
 													
@@ -188,7 +207,7 @@
 													bowler[0].children[2].innerHTML = overs + '.' + balls;
 													bowler[0].children[6].innerHTML
 													= ((((parseInt(bowler[0].children[3].innerHTML))/((overs * 6) + balls) ))* 6).toFixed(2);
-													
+													striker[0].children[2].innerHTML = parseInt(striker[0].children[2].innerHTML) - k ;
 													var sRuns = parseInt(striker[0].children[2].innerHTML);
 													var sBalls = parseInt(striker[0].children[3].innerHTML);
 													var sSR = ((sRuns/sBalls) * 100).toFixed(2) ;
@@ -199,7 +218,7 @@
 													
 													tWickets.innerHTML = i -1;
 								        }
-																				if(uWk =="uHw"){
+										if(uWk =="uHw"){
 													
 													var prevBat = document.getElementById("out"+i);
 													var nextBat = document.getElementById("notOut"+i);
@@ -433,7 +452,8 @@
 								}
 								if(wk =="runout"){
 													tWickets.innerHTML = i;
-													var k = parseInt(prompt("how many runs came on this ball?"));
+													if(confirm("Did "+striker[0].children[1].children[0].value +" score Runs off this ball?"))
+													var k = parseInt(prompt("how many runs did "+striker[0].children[1].children[0].value+" and " +runner[0].children[1].children[0].value+" make off this ball, before getting Run Out?" ));
 													striker[0].children[2].innerHTML = parseInt(striker[0].children[2].innerHTML) + k ;
 													score.innerHTML = parseInt(score.innerHTML) + k; 
 													var b = confirm("Is this a No Ball?");

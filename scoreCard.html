@@ -31,6 +31,8 @@
 													var prevBat = document.getElementById("out"+i);
 													var nextBat = document.getElementById("notOut"+i);
 													nextBat.style.display = "none";
+													
+													
 													nextBat.className = "";
 													if(!striker[0]) prevBat.className = "striker";
 													else prevBat.className = "runner";
@@ -166,6 +168,11 @@
 													}
 										
 													nextBat.style.display = "none";
+													nextBat.children[2].inneHTML = 0;
+													nextBat.children[3].inneHTML = 0;
+													nextBat.children[4].inneHTML = 0;
+													nextBat.children[5].inneHTML = 0;
+													nextBat.children[6].inneHTML = 0;
 													nextBat.className = "";
 													if(!striker[0]) prevBat.className = "striker";
 													else prevBat.className = "runner";

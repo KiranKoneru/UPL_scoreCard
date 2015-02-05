@@ -300,6 +300,7 @@
 													bowler[0].children[6].innerHTML
 													= ((((parseInt(bowler[0].children[3].innerHTML))/((overs * 6) + balls) ))* 6).toFixed(2);
 													striker[0].children[2].innerHTML = parseInt(striker[0].children[2].innerHTML) - k ;
+													if(!a)striker[0].children[3].innerHTML = parseInt(striker[0].children[3].innerHTML) - 1 ;
 													var sRuns = parseInt(striker[0].children[2].innerHTML);
 													var sBalls = parseInt(striker[0].children[3].innerHTML);
 													var sSR = ((sRuns/sBalls) * 100).toFixed(2) ;
@@ -790,6 +791,10 @@
 														tOvers--;
 														totalOvers.innerHTML = tOvers;
 														//(document.getElementById("over"+(tOvers+1))).deleteCell(-1);
+																	var cStriker = striker[0];
+																	var cRunner = runner[0];
+																	cStriker.className = "runner";
+																	cRunner.className = "striker";
 														
 										}
 										else balls -= 2;
@@ -797,7 +802,7 @@
 										bowler[0].children[3].innerHTML = parseInt(bowler[0].children[3].innerHTML) - uRuns;
 										bowler[0].children[6].innerHTML = ((((parseInt(bowler[0].children[3].innerHTML))/((overs * 6) + balls) ))* 6).toFixed(2);
 										
-										if((uRuns%2 != 0 || balls == 0) && (!(uRuns%2 != 0 && balls == 0))) {
+										if(uRuns%2 != 0 ) {
 																	var cStriker = striker[0];
 																	var cRunner = runner[0];
 																	cStriker.className = "runner";
@@ -805,6 +810,7 @@
 										}
 									
 									striker[0].children[2].innerHTML = parseInt(striker[0].children[2].innerHTML) - uRuns ;
+									striker[0].children[3].innerHTML = parseInt(striker[0].children[3].innerHTML) - 1 ;
 									score.innerHTML = parseInt(score.innerHTML) - uRuns; 
 									var sRuns = parseInt(striker[0].children[2].innerHTML);
 									var sBalls = parseInt(striker[0].children[3].innerHTML);
@@ -952,10 +958,10 @@
 	</head>
 	<body onload="initialData()">
 	<!--<body>-->
-	<div style="width:50%;height:100%;display:inline-block;">
+	<div style="width:70%;height:100%;display:inline-block;">
 		<div style="margin-bottom:50px;">
 			<h2 style="margin-bottom:20px;display:inline;">
-			<p style="display:inline" id="teamName">Team </p><p id="score" style="display:inline">8</p> / <p style="display:inline" id="tWickets"> 0 </p>
+			<p style="display:inline" id="teamName"> </p><p id="score" style="display:inline">8</p> / <p style="display:inline" id="tWickets"> 0 </p>
 			</h2>
 			<h3 style="margin-bottom:20px;display:inline;">
 			<p style="display:inline" id="teamName">Overs </p><p id="tOvers" style="display:inline">0</p> . <p style="display:inline" id="tBalls"> 4 </p>
@@ -1203,8 +1209,8 @@
 			</div>
 		</div>
 	</div>	
-	<div style="width:50%;height:100%;float:right">
-		<table border="1" >
+	<div style="width:30%;height:100%;float:right">
+		<table border="1px" >
 			<tr id ="over1">
 				<td class="padding">Over 1</td><td class="padding">4</td><td class="padding">1</td><td class="padding">1</td><td class="padding">1</td><td class="padding">Wd</td>	
 			</tr>

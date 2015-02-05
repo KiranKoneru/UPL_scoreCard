@@ -538,9 +538,11 @@
 			if (eRuns == "wide" || eRuns == "byes" || eRuns == "noball" ){
 		
 				var e = prompt("How many Runs?");
+				
 				var sE = e.substring(0,1);
 				if(sE=='u'|| sE=='U') e = -(parseInt(e.substring(1)));
 				else e = parseInt(e);
+				if(e>7){alert("invalid score entered. Enter the extra again");return;}
 					if(e == 0 || (!e) ) {extra.selectedIndex = "extra";return;}
 					if(eRuns == "wide"){
 													score.innerHTML = parseInt(score.innerHTML) + e;
@@ -608,6 +610,7 @@
 						if (x) {calScore(); return;}
 						else return;
 			}
+			if(runs>7){alert("invalid score entered. Enter Runs again");return;}
 		//batsman stats
 				if (striker.length!= 1){
 										alert("This Application is a mess!! Jeez!!");
@@ -687,15 +690,15 @@
 		
 		<style>
 		.runner{
-			background-color:red;
+			background-color:#F5F5DC;
 		}
 		
 		.striker{
-			background-color:green;
+			background-color:#66CDAA;
 		}
 		
 		.bowler{
-			background-color:yellow;
+			background-color:#AFEEEE;
 		}
 		</style>
 	</head>
